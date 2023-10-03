@@ -3,8 +3,6 @@ function startConnect() {
     host = document.getElementById("host").value;   
     port = document.getElementById("port").value;  
 
-    var mqttBrokerUrl = "wss://" + serverIP + ":" + serverPort + "/mqtt"; // Secure WebSocket URL
-
     var clientID = "clientID - " + parseInt(Math.random() * 100);
 
 // Create the MQTT client using the constructed URL
@@ -14,7 +12,7 @@ function startConnect() {
     document.getElementById("messages").innerHTML += "<span> Connecting to " + host + "on port " +port+"</span><br>";
     document.getElementById("messages").innerHTML += "<span> Using the client Id " + clientID +" </span><br>";
 
-    var client = new Paho.MQTT.Client(mqttBrokerUrl, clientID);
+    client = new Paho.MQTT.Client(host,Number(port), clientID);
 
     client.onConnectionLost = onConnectionLost;
     client.onMessageArrived = onMessageArrived;
@@ -23,7 +21,7 @@ function startConnect() {
         onSuccess: onConnect,
     });
 
-``
+
 }
 
 function onConnect(){
